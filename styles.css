@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: pan-y;
+  }
+}
+
+/* =========================================================
+   PHYSICAL HANGING TOY PENDULUM ANIMATION
+   0° -> -5° -> +5° -> -3° -> +3° -> 0°
+   Slow, gentle, relaxing physical sway
+   ========================================================= */
+
+@keyframes idlePendulum {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-5deg);
+  }
+  45% {
+    transform: rotate(4.8deg);
+  }
+  65% {
+    transform: rotate(-2.8deg);
+  }
+  85% {
+    transform: rotate(2.2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-idle-pendulum {
+  animation: idlePendulum 5.2s ease-in-out infinite;
+  transform-origin: 50% -45px;
+  will-change: transform;
+}
+
+/* Sparkle Burst Animation */
+@keyframes sparkleAnim {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+    transform: translate(calc(var(--tw-translate-x, 0) * 0.5), calc(var(--tw-translate-y, 0) * 0.5)) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y, 0)) scale(0.2);
+  }
+}
+
+/* Accessible Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-idle-pendulum {
+    animation: none !important;
+    transform: rotate(0deg) !important;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
